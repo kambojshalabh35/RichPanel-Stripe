@@ -1,10 +1,10 @@
 {
-  "name": "richpanel",
+  "name": "richpanell",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
