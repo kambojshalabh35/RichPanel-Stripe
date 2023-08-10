@@ -2,7 +2,7 @@ import { MongoClient, ServerApiVersion } from 'mongodb';
 
 export default async function handler(req, res) {
     if(req.method === 'POST') {
-        const { name, email, password } = req.body
+        const { email, password } = req.body
 
         let data = {
             email: email,
