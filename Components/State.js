@@ -5,43 +5,40 @@ import React, { useEffect, useState } from 'react'
 const State = (props) => {
   let status = props.status
   const router = useRouter()
-
-  const [MyAppPaymentMethod, setMyAppPaymentMethod] = useState('')
   const [plan, setplan] = useState('')
-  const [price, setprice] = useState('')
+  let price
 
   useEffect(() => {
-    setMyAppPaymentMethod(JSON.parse(localStorage.getItem('MyAppUser')))
+    let MyAppPaymentMethod = JSON.parse(localStorage.getItem('MyAppUser'))
     if(MyAppPaymentMethod) {
-      setprice(MyAppPaymentMethod.paymentIntent.amount/100)
+      price = MyAppPaymentMethod.paymentIntent.amount/100
     }
     
-  if(price == 100) {
-    setplan(()=>{return {pln:'Mobile', cycle:'Monthly', type:'Phone+Tablet'}})
-  } else if(price == 200) { 
-    setplan(()=>{return {pln:'Basic', cycle:'Monthly', type:'Phone+Tablet+Computer+TV'}})
-  } else if(price == 500) {
-    setplan(()=>{return {pln:'Standard', cycle:'Monthly', type:'Phone+Tablet+Computer+TV'}})
-  } else if(price == 700) {
-    setplan(()=>{return {pln:'Premium', cycle:'Monthly', type:'Phone+Tablet+Computer+TV'}})
-  } else if(price == 1000) {
-    setplan(()=>{return {pln:'Mobile', cycle:'Yearly', type:'Phone+Tablet'}})
-  } else if(price == 2000) {
-    setplan(()=>{return {pln:'Basic', cycle:'Yearly', type:'Phone+Tablet+Computer+TV'}})
-  } else if(price == 5000) {
-    setplan(()=>{return {pln:'Standard', cycle:'Yearly', type:'Phone+Tablet+Computer+TV'}})
-  } else if(price == 7000) {
-    setplan(()=>{return {pln:'Premium', cycle:'Yearly', type:'Phone+Tablet+Computer+TV'}})
-  }
+    if(price == 100) {
+      setplan(()=>{return {pln:'Mobile', cycle:'Monthly', type:'Phone+Tablet', price}})
+    } else if(price == 200) { 
+      setplan(()=>{return {pln:'Basic', cycle:'Monthly', type:'Phone+Tablet+Computer+TV', price}})
+    } else if(price == 500) {
+      setplan(()=>{return {pln:'Standard', cycle:'Monthly', type:'Phone+Tablet+Computer+TV', price}})
+    } else if(price == 700) {
+      setplan(()=>{return {pln:'Premium', cycle:'Monthly', type:'Phone+Tablet+Computer+TV', price}})
+    } else if(price == 1000) {
+      setplan(()=>{return {pln:'Mobile', cycle:'Yearly', type:'Phone+Tablet', price}})
+    } else if(price == 2000) {
+      setplan(()=>{return {pln:'Basic', cycle:'Yearly', type:'Phone+Tablet+Computer+TV', price}})
+    } else if(price == 5000) {
+      setplan(()=>{return {pln:'Standard', cycle:'Yearly', type:'Phone+Tablet+Computer+TV', price}})
+    } else if(price == 7000) {
+      setplan(()=>{return {pln:'Premium', cycle:'Yearly', type:'Phone+Tablet+Computer+TV', price}})
+    }
   }, [])
 
-
-
-  console.log(MyAppPaymentMethod);
 
   return (
     <>
       <div className={`${styles.bg}`}>
+        {
+          plan && 
         <div className={`col-6`}>
           <div className={`${styles.card} py-3 px-3`}>
             <div className={`row`}>
@@ -72,7 +69,7 @@ const State = (props) => {
                 <span className="mt-3">{plan.type}</span>
               </div>
               <div className={`${styles.planPrice}`}>
-                <span className="mt-3">₹ {price}.00/{plan.cycle}</span>
+                <span className="mt-3">₹ {plan.price}.00/{plan.cycle}</span>
               </div>
               <div>
                 {
@@ -93,6 +90,7 @@ const State = (props) => {
 
           </div>
         </div>
+}
       </div>
     </>
   )
