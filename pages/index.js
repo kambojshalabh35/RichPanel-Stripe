@@ -1,11 +1,5 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import styles from '@/styles/Home.module.css'
-import Login from '@/Components/LoginComp'
 import Signup from '@/Components/Signup'
-import Pricing from '@/Components/Pricing'
-import CardInfo from '@/Components/CardInfo'
-import State from '@/Components/State'
 
 export default function Home(props) {
   return (
