@@ -1,38 +1,43 @@
-import React from 'react'
 import styles from '@/Components/styles/State.module.css'
 import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
 
 const State = (props) => {
-  let MyAppPaymentMethod = null
-  let price
-  let plan
   let status = props.status
   const router = useRouter()
 
-  if(props.MyAppPaymentMethod) {
-    MyAppPaymentMethod = props.MyAppPaymentMethod
-    price = MyAppPaymentMethod.paymentIntent.amount/100
+  const [MyAppPaymentMethod, setMyAppPaymentMethod] = useState('')
+  const [plan, setplan] = useState('')
+  const [price, setprice] = useState('')
+
+  useEffect(() => {
+    setMyAppPaymentMethod(JSON.parse(localStorage.getItem('MyAppUser')))
+    if(MyAppPaymentMethod) {
+      setprice(MyAppPaymentMethod.paymentIntent.amount/100)
+    }
+    
+  if(price == 100) {
+    setplan(()=>{return {pln:'Mobile', cycle:'Monthly', type:'Phone+Tablet'}})
+  } else if(price == 200) { 
+    setplan(()=>{return {pln:'Basic', cycle:'Monthly', type:'Phone+Tablet+Computer+TV'}})
+  } else if(price == 500) {
+    setplan(()=>{return {pln:'Standard', cycle:'Monthly', type:'Phone+Tablet+Computer+TV'}})
+  } else if(price == 700) {
+    setplan(()=>{return {pln:'Premium', cycle:'Monthly', type:'Phone+Tablet+Computer+TV'}})
+  } else if(price == 1000) {
+    setplan(()=>{return {pln:'Mobile', cycle:'Yearly', type:'Phone+Tablet'}})
+  } else if(price == 2000) {
+    setplan(()=>{return {pln:'Basic', cycle:'Yearly', type:'Phone+Tablet+Computer+TV'}})
+  } else if(price == 5000) {
+    setplan(()=>{return {pln:'Standard', cycle:'Yearly', type:'Phone+Tablet+Computer+TV'}})
+  } else if(price == 7000) {
+    setplan(()=>{return {pln:'Premium', cycle:'Yearly', type:'Phone+Tablet+Computer+TV'}})
   }
+  }, [])
+
+
 
   console.log(MyAppPaymentMethod);
-
-  if(price == 100) {
-    plan = ['Mobile', 'Monthly', 'Phone+Tablet']
-  } else if(price == 200) { 
-    plan = ['Basic', 'Monthly', 'Phone+Tablet+Computer+TV']
-  } else if(price == 500) {
-    plan = ['Standard', 'Monthly', 'Phone+Tablet+Computer+TV']
-  } else if(price == 700) {
-    plan = ['Premium', 'Monthly', 'Phone+Tablet+Computer+TV']
-  } else if(price == 1000) {
-    plan = ['Mobile', 'Yearly', 'Phone+Tablet']
-  } else if(price == 2000) {
-    plan = ['Basic', 'Yearly', 'Phone+Tablet+Computer+TV']
-  } else if(price == 5000) {
-    plan = ['Standard', 'Yearly', 'Phone+Tablet+Computer+TV']
-  } else if(price == 7000) {
-    plan = ['Premium', 'Yearly', 'Phone+Tablet+Computer+TV']
-  }
 
   return (
     <>
@@ -53,7 +58,7 @@ const State = (props) => {
                 status ? 
                 <div className={`col-4`}>
                   <p onClick={()=>{
-                    router.push('/cancel')
+                    router.push('/cancelled')
                   }} className="text-end" style={{fontSize: '14px', color: '#5074a9', fontWeight: '800', cursor: 'pointer'}}>Cancel</p>
                 </div> : ''
               }
@@ -61,13 +66,13 @@ const State = (props) => {
             </div>
             <div>
               <div className={`${styles.planName}`}>
-                <span className="mt-3" style={{textTransform:'capitalize'}}>{plan[0]}</span>
+                <span className="mt-3" style={{textTransform:'capitalize'}}>{plan.pln}</span>
               </div>
               <div className={`${styles.planRes}`}>
-                <span className="mt-3">{plan[2]}</span>
+                <span className="mt-3">{plan.type}</span>
               </div>
               <div className={`${styles.planPrice}`}>
-                <span className="mt-3">₹ {price}.00/{plan[1].substr(0,2)}</span>
+                <span className="mt-3">₹ {price}.00/{plan.cycle}</span>
               </div>
               <div>
                 {

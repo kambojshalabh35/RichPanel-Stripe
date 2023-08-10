@@ -87,7 +87,7 @@ const CardInfo = (props) => {
         } else {
             console.log(res)
             localStorage.setItem('MyAppUser', JSON.stringify(res))
-            router.push('/success?success='+res.paymentIntent.id)
+            router.push('/successfull?success='+res.paymentIntent.id)
         }
     }
   return (
