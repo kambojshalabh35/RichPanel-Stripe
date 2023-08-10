@@ -28,7 +28,7 @@ export default async function handler(req, res) {
         } else {
           res.status(200).json(false)
         }
-
+        return
     }
     res.status(200).json({Hello:"Hello World"})
 }

@@ -21,7 +21,7 @@ export default function App({ Component, pageProps }) {
   const LoginSubmitHandler = () => {
     if(LoginData.email != '') {
       if(LoginData.password != '') {
-        fetch('https://rich-panel-stripe.vercel.app/api/login-user', {
+        fetch('/api/login-user', {
           method: 'POST',
           body: JSON.stringify(LoginData),
           headers: {
@@ -48,7 +48,7 @@ export default function App({ Component, pageProps }) {
     if(SignupDetails.name != '') {
       if(SignupDetails.email != '') {
         if(SignupDetails.password != '') {
-          fetch('https://rich-panel-stripe.vercel.app/api/create-user', {
+          fetch('/api/create-user', {
             method: 'POST',
             body: JSON.stringify(SignupDetails),
             headers: {

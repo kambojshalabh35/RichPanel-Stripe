@@ -25,6 +25,8 @@ export default async function handler(req, res) {
         delete data.password;
 
         res.status(200).json(data)
+        
+        return
     }
     res.status(200).json({Hello:"Hello World"})
 }
